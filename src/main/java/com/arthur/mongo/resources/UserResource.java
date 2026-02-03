@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.arthur.mongo.domain.User;
 import com.arthur.mongo.dto.UserDTO;
 import com.arthur.mongo.services.UserService;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @RestController
@@ -54,4 +56,12 @@ public class UserResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> putMethodName(@PathVariable String id, @RequestBody UserDTO userdto) {
+		User user = userService.fromDTO(userdto);
+		user.setId(id);
+		user = userService.update(user);
+		return ResponseEntity.noContent().build();
+	}
+	
 }
